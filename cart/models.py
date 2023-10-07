@@ -3,7 +3,7 @@ from store.models import Product
 from django.contrib.auth.models import User
 # Create your models here.
 class Cart(models.Model):
-    cart_id=models.CharField(max_length=255,blank=True)
+    cart_id=models.CharField(max_length=255,blank=True,null=True)
     date_added=models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
