@@ -10,7 +10,8 @@
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
     
-        <title>DjangoMart | One of the Biggest Online Shopping Platform</title>
+        {% comment %} <title>DjangoMart | One of the Biggest Online Shopping Platform</title> {% endcomment %}
+        <title>Online shopping | One of the Biggest Online Shopping Platform</title>
     
         <link href="{% static 'images/favicon.ico' %}" rel="shortcut icon" type="image/x-icon" />
     
@@ -74,11 +75,12 @@
               <div class="col-lg-2 col-md-3 col-6">
                 <a href="{% url 'home' %}" class="brand-wrap">
                   {% comment %} <img class="logo" src="./images/logo.png" /> {% endcomment %}
-                  <h3>Django Mart</h3>
+                  {% comment %} <h3>Django Mart</h3> {% endcomment %}
+                  <h3>Online Shopping</h3>
                 </a>
                 <!-- brand-wrap.// -->
               </div>
-              <div class="col-lg col-sm col-md col-6 flex-grow-0">
+              {% comment %} <div class="col-lg col-sm col-md col-6 flex-grow-0">
                 <div class="category-wrap dropdown d-inline-block float-right">
                   <button
                     type="button"
@@ -107,7 +109,7 @@
                   </div>
                 </div>
                 <!-- category-wrap.// -->
-              </div>
+              </div> {% endcomment %}
               <!-- col.// -->
               <a href="{% url 'store' %}" class="btn btn-outline-primary">Store</a>
               <div class="col-lg col-md-6 col-sm-12 col">
@@ -134,7 +136,8 @@
                 <div class="d-flex justify-content-end mb-3 mb-lg-0">
                   <div class="widget-header">
                     {% if request.user.is_authenticated %}
-                    <small class="title text-muted">Welcome {{request.user.first_name}}!</small>
+                    {% comment %} <small class="title text-muted">Welcome {{request.user.first_name}}!</small> {% endcomment %}
+                    <small class="title text-muted">Welcome {{request.user.username}}!</small>
                     <div>
                       <a href="{% url 'profile' %}">Profile</a>
                       <span class="dark-transp"> | </span>
@@ -176,12 +179,15 @@
 	<div class="container">
 		<section class="footer-bottom border-top row">
 			<div class="col-md-2">
-				<p class="text-muted"> &copy 2019 Company name </p>
+				{% comment %} <p class="text-muted"> &copy 2019 Company name </p> {% endcomment %}
 			</div>
 			<div class="col-md-8 text-md-center">
-				<span  class="px-2">info@pixsellz.io</span>
-				<span  class="px-2">+879-332-9375</span>
-				<span  class="px-2">Street name 123, Avanue abc</span>
+				{% comment %} <span  class="px-2">info@pixsellz.io</span> {% endcomment %}
+				<span  class="px-2">srsobuj150921@gmail.com</span>
+				{% comment %} <span  class="px-2">+879-332-9375</span> {% endcomment %}
+				<span  class="px-2">01308162078</span>
+				{% comment %} <span  class="px-2">Street name 123, Avanue abc</span> {% endcomment %}
+				<span  class="px-2">Dhaka, Bangladesh</span>
 			</div>
 			<div class="col-md-2 text-md-right text-muted">
 				<i class="fab fa-lg fa-cc-visa"></i>

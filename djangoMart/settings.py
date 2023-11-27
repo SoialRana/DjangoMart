@@ -122,10 +122,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS=[
-    BASE_DIR / 'static',
+    BASE_DIR / 'static',# ekhane onekgula static file thakte pare tie list use kora hoiche ..jodi
+    #amra statics name dite chay taile setai amader base directory te dite hobe
 ]
-MEDIA_URL='media/'
-MEDIA_ROOT=BASE_DIR/'media' # er sathe aro ekta jinish add korte hoi main url e 
+MEDIA_URL='media/'   # ei line tar mane hocce url ta media diye suru hbe 
+MEDIA_ROOT=BASE_DIR/'media' #... MEDIA_ROOT=BASE_DIR/'media' ei line tar mane hocce media name 1ta folder create hbe   er sathe aro ekta jinish add korte hoi main url e 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

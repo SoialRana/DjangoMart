@@ -10,10 +10,9 @@ class Product(models.Model):
     image=models.ImageField(upload_to='photos/products')
     stock=models.IntegerField()
     is_available=models.BooleanField(default=True)
-    category=models.ForeignKey(Category,on_delete=models.CASCADE)
+    category=models.ForeignKey(Category,on_delete=models.CASCADE)  # 1ta categorir under e onekgula product thakte pare ei jonno one to many field er jonno ForeignKey use kora hoice category model er sathe one to many relationship hocce 
     created_date=models.DateTimeField(auto_now_add=True)
     modified_date=models.DateTimeField(auto_now=True)
-    
     
     def __str__(self):
         return self.product_name

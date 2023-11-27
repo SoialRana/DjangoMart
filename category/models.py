@@ -9,6 +9,7 @@ class Category(models.Model):
     slug=models.SlugField(max_length=100,unique=True)
     description=models.TextField(max_length=255,blank=True) #blank mane diteo pare na diteo pare
     cat_image=models.ImageField(upload_to='photos/categories',blank=True)
+    # egula korar por pore direct makemigration and migrate korte hbe tarpor createsuperuser korte hbe 
     
     def __str__(self):
         return self.category_name # amader obj gulor nam tar nam onusare hobe 
