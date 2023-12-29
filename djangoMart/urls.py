@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from .import views
-from django.conf.urls.static import static # ei 2 ta import korchi media file er jonno 
+from django.conf.urls.static import static #This 2 files import for media files
 from django.conf import settings
 
 urlpatterns = [
@@ -29,5 +29,4 @@ urlpatterns = [
     path('order/', include('orders.urls')),
     # path('category/', include('category.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-#amader media file gulor j link ta hobe se link ta amader mainurl er sathe kind of bonding kore dichi 
+# We bonding our media file url link with the main url 
