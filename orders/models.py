@@ -2,17 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 from store.models import Product
-# ekahne amra payment er kaj gulo korlam 
-class Payment(models.Model):# model gulor maddhome ami amar database e oi user ki maddhome
-    # taka ta payment korche kototaka payment korche ,kobe or kivabe korche sobkisu 
-    # amra database e store korbo tar jonno amar model er dorkar hocche 
-    user = models.ForeignKey(User, on_delete=models.CASCADE) # ekjon user many transaction korte pare
-    payment_id = models.CharField(max_length= 100) # payment id diye ber kora jabe kokhon koto taka payment korchi
+from accounts.models import Account
+# Here we perform our payment task 
+class Payment(models.Model):# Through the model we store our database that our user payment the money which medium , and 
+    # how much money he pay,and when and how she payment everything.so we need a model.
+    # user = models.ForeignKey(User, on_delete=models.CASCADE) # A user can perform many transaction 
+    user = models.ForeignKey(Account, on_delete=models.CASCADE) # A user can perform many transaction
+    payment_id = models.CharField(max_length= 100) # we use the payment id and find when and how much money we payment
     payment_method = models.CharField(max_length=100)
     amount_paid = models.IntegerField()
     status = models.CharField(max_length = 100)
     created_at = models.DateTimeField(auto_now_add=True)
-    # kon date time e se transaction create korche 
 
 class Order(models.Model):
     STATUS = (
@@ -21,13 +21,12 @@ class Order(models.Model):
         ('Completed', 'Completed'),
         ('Cancelled', 'Cancelled'),
     )
-    user = models.ForeignKey(User, on_delete= models.CASCADE)
+    # user = models.ForeignKey(User, on_delete= models.CASCADE)
+    user = models.ForeignKey(Account, on_delete= models.CASCADE)
     # payment = models.ForeignKey(Payment, on_delete=models.CASCADE)
-    # ekjon user multiple payment korte pare 
-    order_number = models.CharField(max_length=30) # user jate tar order number er 
-    # quantity dashboard e dekhte pare tar jonno order no lagbe 
-    first_name = models.CharField(max_length=100)# jodi se onno karo order korte chay
-    # tar jonno abar first name rakhtechi 
+    # A user can perform multiple payment
+    order_number = models.CharField(max_length=30) # As user can show his order number in dashboard so need order number
+    first_name = models.CharField(max_length=100)# If he wants to try another person order so again need first name
     last_name = models.CharField(max_length=100)
     phone = models.CharField(max_length=12)
     email = models.EmailField(max_length=50)
@@ -37,36 +36,30 @@ class Order(models.Model):
     state = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     order_note = models.CharField(max_length=100)
-    # user er details gelo ekhon product details dibo
+    
+    # Here above we set user details now below we set product details
     order_total = models.FloatField()
     tax = models.FloatField()
-    status = models.CharField(max_length=10, choices = STATUS, default='New')
-    # user j order korlo eta ki approve /accept hoiche 
-    # charField er khetre must be max langth dite hobe 
-    ip = models.CharField(max_length=100, blank=True, null = True)
-    # amra user er ip address k track rakhte pari jodi user er address vull hote pare 
-    # blank hocche eta amra dibo na ar null hocche eta amra faka rakhte pari kono kisu
-    # nao dite pari ...blank=true hocche amra jodi kono kichu nao diye thaki tarporo 
-    # jate backend e save hoi kono error na dekhay 
-    is_ordered = models.BooleanField(default=False) #ekta product order hocche ki na 
-    # seta amra check kortechi 
+    status = models.CharField(max_length=10, choices = STATUS, default='New')# As user perform a order so it is approved or accept ? 
+    # We use max_length must be for charField
+    ip = models.CharField(max_length=100, blank=True, null = True) # We can track user ip address if user address have 
+    # some mistake. Blank=True means if we don't push or give any data still save it backend and don't show any error
+    # Null means we can blank it. 
+    is_ordered = models.BooleanField(default=False) # We check that a product ordered or not
     created_at = models.DateTimeField(auto_now_add = True)
 
 
 class OrderProduct(models.Model):
-    order = models.ForeignKey(Order, on_delete= models.CASCADE) # ekta product multiple
-    # time order hote pare ...ekta product jokhon order kora hobe tar order detils and
-    # payment details thakbe 
+    order = models.ForeignKey(Order, on_delete= models.CASCADE) # A product can be ordered in multiple time. A product must have ordered details when we ordered a product
     payment = models.ForeignKey(Payment, on_delete= models.CASCADE)
-    user = models.ForeignKey(User, on_delete= models.CASCADE)
+    # user = models.ForeignKey(User, on_delete= models.CASCADE)
+    user = models.ForeignKey(Account, on_delete= models.CASCADE)
     product = models.ForeignKey(Product, on_delete= models.CASCADE)
-    quantity = models.IntegerField() # ei product koto quantity amra purchase kortechi
-    ordered = models.BooleanField(default=False)# product ta order kora hoiche ki na 
-    # first time false rakhbo j order kora hoi nie 
+    quantity = models.IntegerField() # How many product we purchase this product
+    ordered = models.BooleanField(default=False)# First time the product ordered or not default it is false
     created = models.DateTimeField(auto_now_add=True)
 
 class PaymentGateWaySettings(models.Model): 
     store_id = models.CharField(max_length=500, blank=True, null=True)
     store_pass = models.CharField(max_length=500, blank=True, null = True)
-    # amader store id and password jate bar bar na change korte hoi tar jonno amra 
-    # ei kaj ta backend thake kortechi 
+    # Our store id and password don't change repeatedly so this task we done from backend

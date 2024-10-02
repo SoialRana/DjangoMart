@@ -1,3 +1,5 @@
 db.sqlite3
 __pycache__/
 *.pyc
+# Ignore compiled migration files
+*/migrations/__pycache__/

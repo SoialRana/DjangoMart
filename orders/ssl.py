@@ -6,19 +6,17 @@ from .models import PaymentGateWaySettings
 
 def unique_transaction_id_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
-# amra amader j ascii character gulo ache uppercase and digit gulo ache segulo combination
-# kore ekta transaction id(string--> 10 size er) create kortechi 
+#  We use our ASCII character(Uppercase and Digit) and then we combined them and create a transaction id(string--> 10 size )
 
 @login_required 
 def sslcommerz_payment_gateway(request, id, user_id, grand_total):
     gateway_auth_details = PaymentGateWaySettings.objects.all().first()
-    # onek gulo store id theke first id ta nilam ami 
+    # we take first_id from the all store_id
     settings = {'store_id': gateway_auth_details.store_id,
                 'store_pass': gateway_auth_details.store_pass, 'issandbox': True}
-    # amra store id and pass ta nilam ...interface ta thakbe ki na oi jonno True 
-    # payment er j box ta thakbe seta hocche sandbox  
+    # We take the store_id and store_pass. True means we use interface or not..Sandbox is a box that contain payment
     print("heyyyyyyyy ", settings)
-    sslcommez = SSLCOMMERZ(settings) #sslcommerz er moddhe store id and password pass kre dilam
+    sslcommez = SSLCOMMERZ(settings) # We pass the store id and password through sslcommerz
     post_body = {}
     post_body['total_amount'] = grand_total
     post_body['currency'] = "BDT"
@@ -26,8 +24,7 @@ def sslcommerz_payment_gateway(request, id, user_id, grand_total):
     post_body['success_url'] = 'http://127.0.0.1:8000/order/success/'
     post_body['fail_url'] = 'http://127.0.0.1:8000/orders/payment/faild/'
     post_body['cancel_url'] = 'http://127.0.0.1:8000/'
-    # jodi tran id er kaj ta complete hoi taile success url e pathay dibo tar jonno url
-    # link create korchi or fail/cancel er jonno url boshay dibo 
+    # If the transaction id has been complete then we send it success url so create a url link or we set the for fail or cancel
     post_body['emi_option'] = 0
     post_body['cus_email'] = 'request.user.email'  # Retrieve email from the current user session
     post_body['cus_phone'] = 'request.user.phone'  # Retrieve phone from the current user session

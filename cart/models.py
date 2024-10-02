@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import Account
 from store.models import Product
 from django.contrib.auth.models import User
 # Create your models here.
@@ -11,7 +12,8 @@ class Cart(models.Model):
     
     
 class CartItem(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    # user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    user=models.ForeignKey(Account,on_delete=models.CASCADE,null=True)
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
     cart=models.ForeignKey(Cart,on_delete=models.CASCADE,null=True)
     quantity=models.IntegerField()
@@ -22,3 +24,6 @@ class CartItem(models.Model):
     
     def __str__(self):
         return str(self.product)
+    
+    # def __unicode__(self):
+    #     return self.product

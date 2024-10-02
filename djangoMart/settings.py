@@ -55,6 +55,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'djangoMart.urls'
+AUTH_USER_MODEL = 'accounts.Account'
+
 
 TEMPLATES = [
     {
@@ -122,13 +124,30 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS=[
-    BASE_DIR / 'static',# ekhane onekgula static file thakte pare tie list use kora hoiche ..jodi
-    #amra statics name dite chay taile setai amader base directory te dite hobe
+    BASE_DIR / 'static',
 ]
-MEDIA_URL='media/'   # ei line tar mane hocce url ta media diye suru hbe 
-MEDIA_ROOT=BASE_DIR/'media' #... MEDIA_ROOT=BASE_DIR/'media' ei line tar mane hocce media name 1ta folder create hbe   er sathe aro ekta jinish add korte hoi main url e 
+MEDIA_URL='media/'
+MEDIA_ROOT=BASE_DIR/'media' # er sathe aro ekta jinish add korte hoi main url e 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
+# SMTP configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'zinanmuntasir123@gmail.com'
+EMAIL_HOST_PASSWORD = "pwye nhhf wnln ejlp"
+EMAIL_USE_TLS = True
+
+# SSLCOMMERZ_PAYMENT_URL = 'https://sandbox.sslcommerz.com/gwprocess/v4/api.php'  # Update with production URL for live environment
+# SSLCOMMERZ_STORE_ID = 'djang64a00838ddbc2'
+# SSLCOMMERZ_STORE_PASSWORD = 'RUf4qUafVnvcRNN'

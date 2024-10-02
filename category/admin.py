@@ -3,15 +3,12 @@ from .models import Category
 # Register your models here.
 # admin.site.register(Category)
 
-# amader ekta model admin make korte hobe jodi ekta customize admin panel chay
-# ei kaj ti slug er jonno korte hoi 
-
+# As I have create a model admin so at first i create a customize admin panel. This work i have done for slug field
 class CategoryAdmin(admin.ModelAdmin):
-    # ami ja likhbo prepopulated_field automatic kisu zenarate korbe ...
-    prepopulated_fields={'slug': ('category_name',)} # model name theke slug toiri korte chay
-    # prepopulated fields must be tuple ei jonno amader comma use korte hobe na hole error khabo 
-    list_display=('category_name','slug') # ami chay slug field er moddhe category name ta chole asuk
+    # If i anything write something then prepopulated field generate automatically
+    prepopulated_fields={'slug': ('category_name',)} # I make slug from model field
+    # prepopulated fields must be tuple so that we use comma otherwise it make some errors
+    list_display=('category_name','slug') # I want to add category name in the slug field
 
 admin.site.register(Category,CategoryAdmin)
-# create superuser korar age sob somoy makemigration and migrate korte hobe 
-
+# If i want to createsuperuser first must be i have done makemigration and migrate
